@@ -25,21 +25,43 @@ class Game extends React.Component {
 
 
     };
-    this.rock = this.rock.bind(this)
-    this.paper = this.paper.bind(this)
-    this.scissors = this.scissors.bind(this)
+    this.rock = this.rock.bind(this);
+    this.paper = this.paper.bind(this);
+    this.scissors = this.scissors.bind(this);
+    this.playGame = this.playGame.bind(this);
+  }
+
+
+  playGame(playerMove){
+    if(! this.state.played) {
+
+      let oponentMove = chooseRandomAction();
+      let status = choseWinner(playerMove, oponentMove);
+      this.setState({
+
+        played: true, 
+        status: status, 
+        playerMove: playerMove,
+        oponentMove: oponentMove
+       } )
+
+    }
   }
 
   rock () {
-    console.log("Rock's chosen");
+    console.log("Rock chosen");
+    this.playGame("Rock");
+    
   }
 
   paper() {
     console.log("paper chosen")
+    this.playGame("Paper");
   }
 
   scissors() {
     console.log("Scissors chosen")
+    this.playGame("Scissors");
   }
 
   render() {
