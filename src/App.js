@@ -17,6 +17,8 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.rock = this.rock.bind(this)
+    this.paper = this.paper.bind(this)
+    this.scissors = this.scissors.bind(this)
   }
 
   rock () {
@@ -34,13 +36,22 @@ class Game extends React.Component {
   render() {
     return <div> 
       <button onClick={this.rock}> Rock </button>
-      <button> Paper </button>
-      <button> Scissors </button>
+      <button onClick={this.paper}> Paper </button>
+      <button onClick={this.scissors}> Scissors </button>
 
       <span>Game status</span>
       <span> |  Oponent Choice</span>
     </div>
 
   }
+}
+
+function chooseRandomAction(){
+
+  let moves = ["Rock", "Paper", "Scissors"];
+  let randNr =Math.floor(Math.random() * 3);
+  let randMove = moves[randNr];
+  return randMove;
+
 }
 export default App;
