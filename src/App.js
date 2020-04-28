@@ -5,7 +5,7 @@ class App extends React.Component {
 render () {
 
   return <div>
-  <h1>Rock Paper Scissors</h1>
+  <h1>Rock Paper Scissors with React</h1>
   <Game />
   </div>
 }
@@ -14,9 +14,26 @@ render () {
 
 class Game extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.rock = this.rock.bind(this)
+  }
+
+  rock () {
+    console.log("Rock's chosen");
+  }
+
+  paper() {
+    console.log("paper chosen")
+  }
+
+  scissors() {
+    console.log("Scissors chosen")
+  }
+
   render() {
     return <div> 
-      <button> Rock </button>
+      <button onClick={this.rock}> Rock </button>
       <button> Paper </button>
       <button> Scissors </button>
 
