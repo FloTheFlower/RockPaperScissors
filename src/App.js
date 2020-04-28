@@ -65,13 +65,18 @@ class Game extends React.Component {
   }
 
   render() {
+
+    let stat = this.state.played ? this.state.status : " " ;
+    let op = this.state.played ? this.state.oponentMove : " ";
+
+
     return <div> 
       <button onClick={this.rock}> Rock </button>
       <button onClick={this.paper}> Paper </button>
       <button onClick={this.scissors}> Scissors </button>
 
-      <span>Game status</span>
-      <span> |  Oponent Choice</span>
+      <span>Game status: {stat} </span>
+      <span> |  Oponent Choice {op} </span>
     </div>
 
   }
