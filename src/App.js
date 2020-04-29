@@ -70,7 +70,7 @@ class Game extends React.Component {
   }
 
   render() {
-    let stat = this.state.played ? this.state.status : " " ;
+    let stat = this.state.played ? statusCodeToText(this.state.status) : " " ;
     let op = this.state.played ? this.state.oponentMove : " ";
 
 
@@ -125,6 +125,11 @@ if (playerMove === "Scissors") {
   
 }
 
+function statusCodeToText (status) {
+if (status == -1) return "Loss";
+if (status == 0) return "Draw";
+if (status == 1 ) return "Won";
+}
 
 
 export default App;
