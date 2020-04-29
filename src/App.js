@@ -38,6 +38,7 @@ class Game extends React.Component {
     this.paper = this.paper.bind(this);
     this.scissors = this.scissors.bind(this);
     this.playGame = this.playGame.bind(this);
+    this.reset  = this.reset.bind(this);
   }
 
 
@@ -69,9 +70,19 @@ class Game extends React.Component {
     this.playGame("Scissors");
   }
 
+  reset() {
+    console.log("Resetting game")
+    this.setState({
+      played: false
+
+    })
+  }
+
   render() {
     let stat = this.state.played ? statusCodeToText(this.state.status) : " " ;
     let op = this.state.played ? this.state.oponentMove : " ";
+
+    let resetBtn = this.state.played ? <button onClick={this.reset}> Reset </button> : null;
 
 
     return <div className="space">
@@ -88,6 +99,10 @@ class Game extends React.Component {
       </div>
       <div className="space">
       <span className="gamestatus">Oponent Choice: {op}</span>
+     
+    <div className="space">
+    {resetBtn}
+      </div> 
       </div>
     </div>    
   }
@@ -130,6 +145,7 @@ if (status == -1) return "Loss";
 if (status == 0) return "Draw";
 if (status == 1 ) return "Won";
 }
+
 
 
 export default App;
