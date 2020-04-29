@@ -1,58 +1,42 @@
-.App {
-  text-align: center;
-}
 
-.borderspace {
-display: flex;
-margin-left: 5%;
-background-color: blue;
-align-self: center;
-color: grey;
-}
-
-.writing {
-  color: white;
-  margin-left: 5%;
-}
-
-.down {
-  margin-top: 10%;
-  border-color: indianred;
-}
-
-
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.entireapp {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-left: 5%;
+  background-color: blue;
+  color: grey;
+
+}
+
+
+.borderspace {
+margin-bottom: 10pt;
+padding: 10pt;
+border-color: lavender;
+border-style: double;
+}
+
+.headline {
+  margin-top: 20pt;
   color: white;
+  margin-left: 5%;
+
 }
 
-.App-link {
-  color: #61dafb;
+.space {
+  margin-top: 2%;
+  margin-left: 10pt;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.buttonspace{
+  padding: 5pt;
+  margin-left: 5pt;
 }
+
+
+
+.gamestatus{
+ 
+  color: red;
+}
+

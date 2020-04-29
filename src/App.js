@@ -6,10 +6,13 @@ class App extends React.Component {
 
 render () {
 
-  return <div className="borderspace">
-    <div className="writing">
+  return <div className="entireapp">
+  <div className="borderspace">
+    <div className="headline">
   <h1 >Rock Paper Scissors with React</h1>
   </div>
+  </div>
+  
   <Game />
   </div>
 }
@@ -74,17 +77,16 @@ class Game extends React.Component {
     let op = this.state.played ? this.state.oponentMove : " ";
 
 
-    return <div className="down"> 
-     
-      <button onClick={this.rock}> Rock </button>
-    
-      <button onClick={this.paper}> Paper </button>
-      <button onClick={this.scissors}> Scissors </button>
-
-
-      <hr />
-      <span>Game status: {stat} </span>
+    return <div className="space">
+      <div className="down">
+      <button className = "buttonspace" onClick={this.rock}> Rock </button>
+      <button className = "buttonspace" onClick={this.paper}> Paper </button>
+      <button className = "buttonspace" onClick={this.scissors}> Scissors </button>
+      </div> 
+      <div className="space">
+      <span className="gamestatus">Game status: {stat} </span>
       <span> |  Oponent Choice {op}</span>
+      </div>
     </div>
 
   }
