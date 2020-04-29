@@ -1,42 +1,56 @@
 
-.entireapp {
-  display: flex;
-  flex-direction: column;
-  margin-left: 5%;
-  background-color: blue;
-  color: grey;
+.entireapp{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: red;
+  font-weight: bold;
 
 }
-
-
-.borderspace {
-margin-bottom: 10pt;
-padding: 10pt;
-border-color: lavender;
-border-style: double;
+.column{
+  display: flex;
+  flex-direction: row;
 }
 
 .headline {
-  margin-top: 20pt;
-  color: white;
-  margin-left: 5%;
-
+  /* margin-top: 5pt; */
+  color: grey;
+  margin-right: 10pt;
+  margin-left: 10pt;
+  margin-top: 10pt;
 }
 
+.image{
+  width: 40%;  
+  margin-top: 10pt;
+  margin-left: 100%;
+}
+
+.imagebox {
+  
+}
+
+
 .space {
-  margin-top: 2%;
+  margin-top: 10pt;
   margin-left: 10pt;
+  margin-right: 10pt;
+  margin-bottom: 1%;
+}
+
+.buttons{
+  
+  border-top: 5px solid red;
+  border-spacing: 2pt;
+  
 }
 
 .buttonspace{
   padding: 5pt;
   margin-left: 5pt;
+  margin-top: 10pt;
+  margin-bottom: 5pt;
 }
 
-
-
 .gamestatus{
- 
-  color: red;
+  color: red; 
 }
 
