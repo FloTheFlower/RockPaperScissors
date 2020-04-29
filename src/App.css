@@ -2,6 +2,26 @@
   text-align: center;
 }
 
+.borderspace {
+display: flex;
+margin-left: 5%;
+background-color: blue;
+align-self: center;
+color: grey;
+}
+
+.writing {
+  color: white;
+  margin-left: 5%;
+}
+
+.down {
+  margin-top: 10%;
+  border-color: indianred;
+}
+
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
