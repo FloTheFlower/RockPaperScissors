@@ -8,15 +8,28 @@ class App extends React.Component {
     super(props);
     this.state = {
 
-      games: []
+      games: [],
+      idx: 0
     };
 
     this.createNewGame = this.createNewGame.bind(this);
+
   }
 
 
 createNewGame(){
   console.log("Creating New Game!")
+
+  let game = <li key={this.state.idx}    ><Game/></li>;
+
+  this.setState((state, props) => {
+    state.games.push(game);
+    return {
+      games: state.games, 
+      
+    }
+  })
+
 }
 
 render () {
@@ -33,8 +46,10 @@ render () {
   
   </div>
   <Stats />
-  <Game />
-  <button onClick={this.createNewGame}> New Game</button>
+  <ul>  
+    {this.state.games}
+  </ul>
+  <button className="space" onClick={this.createNewGame}> New Game</button>
   </div>
 }
 }
