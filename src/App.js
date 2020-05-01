@@ -7,7 +7,6 @@ class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-
       games: [],
       idx: 0
     };
@@ -16,27 +15,28 @@ class App extends React.Component {
 
   }
 
-
 createNewGame(){
   console.log("Creating New Game!")
 
-  let game = <li key={this.state.idx}    ><Game/></li>;
+  let game = <li key={this.state.idx}>
+    
+  
+     <Game/> </li>;
 
   this.setState((state, props) => {
+    console.log(this.state.idx)
     state.games.push(game);
     return {
       games: state.games, 
-      
+      idx: state.idx + 1
     }
   })
 
 }
 
 render () {
-
   return <div className="entireapp">
     <div className="column">
-
     <div className="headline">
   <h1>Rock Paper Scissors with React</h1>
   </div>
@@ -47,7 +47,9 @@ render () {
   </div>
   <Stats />
   <ul>  
-    {this.state.games}
+   
+    {this.state.games} 
+    
   </ul>
   <button className="space" onClick={this.createNewGame}> New Game</button>
   </div>
