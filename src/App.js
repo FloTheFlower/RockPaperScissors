@@ -4,12 +4,26 @@ import './App.css';
 
 class App extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+
+      games: []
+    };
+
+    this.createNewGame = this.createNewGame.bind(this);
+  }
+
+
+createNewGame(){
+  console.log("Creating New Game!")
+}
+
 render () {
 
   return <div className="entireapp">
     <div className="column">
- 
-     
+
     <div className="headline">
   <h1>Rock Paper Scissors with React</h1>
   </div>
@@ -18,10 +32,22 @@ render () {
      </div>
   
   </div>
-
+  <Stats />
   <Game />
+  <button onClick={this.createNewGame}> New Game</button>
   </div>
 }
+}
+
+
+class Stats extends React.Component{
+  render() {
+
+    return <div className="space"> 
+    <span>Games Played        :      | Games won:       | Win rate: </span> 
+    
+    </div>
+  }
 }
 
 
@@ -141,9 +167,9 @@ if (playerMove === "Scissors") {
 }
 
 function statusCodeToText (status) {
-if (status == -1) return "Loss";
-if (status == 0) return "Draw";
-if (status == 1 ) return "Won";
+if (status === -1) return "Loss";
+if (status === 0) return "Draw";
+if (status === 1 ) return "Won";
 }
 
 
