@@ -8,7 +8,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       games: [],
-      idx: 0
+      idx: 0, 
+      gamesPlayed: 0,
+      gamesWon: 0
     };
 
     this.createNewGame = this.createNewGame.bind(this);
@@ -45,7 +47,9 @@ render () {
      </div>
   
   </div>
-  <Stats />
+  <Stats gamesPlayed={this.state.gamesPlayed} 
+  
+  gamesWon={this.state.gamesWon} />
   <ul>  
    
     {this.state.games} 
@@ -59,7 +63,7 @@ render () {
 
 class Stats extends React.Component{
   render() {
-
+    let rate = this.props.gamesWon / this.props.gamesPlayed
     return <div className="space"> 
     <span>Games Played        :      | Games won:       | Win rate: </span> 
     
