@@ -17,6 +17,17 @@ class App extends React.Component {
 
   }
 
+
+handleGameUpdate(e) {
+  if (e.type === "play")  {
+this.setState((state, props ) => ({gamesPlayed: state.gamesPlayed +1 }))
+  } else {
+    //reset 
+    this.setState((state, props) => ({gamesPlayed: state.gamesPlayed -1}));
+  }
+}
+
+
 createNewGame(){
   console.log("Creating New Game!")
 
@@ -63,9 +74,11 @@ render () {
 
 class Stats extends React.Component{
   render() {
-    let rate = this.props.gamesWon / this.props.gamesPlayed
+    let rate = this.props.gamesPlayed ? this.props.gamesWon / this.props.gamesPlayed : 0;
+
+    let roundedRate = Math.round((rate+ Number.EPSILON) * 100) / 180;
     return <div className="space"> 
-    <span>Games Played        :      | Games won:       | Win rate: </span> 
+    <span>Games Played   {this.props.gamesPlayed}:      | Games won:    {this.props.gamesWon}   | Win rate: {roundedRate} </span> 
     
     </div>
   }
