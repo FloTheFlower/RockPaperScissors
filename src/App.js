@@ -14,6 +14,7 @@ class App extends React.Component {
     };
 
     this.createNewGame = this.createNewGame.bind(this);
+    this.handleGameUpdate = this.handleGameUpdate.bind(this);
 
   }
 
@@ -21,10 +22,18 @@ class App extends React.Component {
 handleGameUpdate(e) {
   if (e.type === "play")  {
 this.setState((state, props ) => ({gamesPlayed: state.gamesPlayed +1 }))
+    if(e.playerWon) {
+      this.setState((state, props) => ({gamesWon: state.gamesWon + 1 }))
+    }
   } else {
-    //reset 
+    //reset   
     this.setState((state, props) => ({gamesPlayed: state.gamesPlayed -1}));
+    if(e.playerWon) {
+      this.setState((state, props) => ({gamesWon: state.gamesWon - 1 }))
+    }
   }
+
+  
 }
 
 
@@ -34,7 +43,7 @@ createNewGame(){
   let game = <li key={this.state.idx}>
     
   
-     <Game/> </li>;
+     <Game handleGameUpdate={this.handleGameUpdate}/> </li>;
 
   this.setState((state, props) => {
     console.log(this.state.idx)
@@ -99,6 +108,8 @@ class Game extends React.Component {
     this.scissors = this.scissors.bind(this);
     this.playGame = this.playGame.bind(this);
     this.reset  = this.reset.bind(this);
+    this.notifyParentOfPlay = this.notifyParentOfPlay.bind(this);
+    this.notifyParentOfReset = this.notifyParentOfReset.bind(this)
   }
 
 
@@ -111,8 +122,25 @@ class Game extends React.Component {
         status: status, 
         playerMove: playerMove,
         oponentMove: oponentMove
-       } )
+       }, this.notifyParentOfPlay
+        )
     }
+  }
+
+  notifyParentOfPlay (){
+    let playerWon = this.state.status == true; 
+    this.props.handleGameUpdate({
+      type: "play",
+      playerWon: "playerWon"
+    })
+  }
+
+  notifyParentOfReset (){
+    let playerWon = this.state.status == true; 
+    this.props.handleGameUpdate({
+      type: "reset",
+      playerWon: "playerWon"
+    })
   }
 
   rock () {
@@ -133,9 +161,10 @@ class Game extends React.Component {
   reset() {
     console.log("Resetting game")
     this.setState({
-      played: false
-
-    })
+      played: false },
+      this.notifyParentOfReset 
+      
+      )
   }
 
   render() {
