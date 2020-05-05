@@ -1,6 +1,24 @@
 import React from 'react';
 import logo from './logo.jpg';
 import './App.css';
+import ApolloClient from 'apollo-boost'
+import gql from 'graphql-tag';
+import { ApolloProvider, ApolloConsumer } from 'react-apollo';
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000"
+});
+
+client 
+.query({
+  query: gql`{
+    recipes {
+       id 
+       title
+    }
+  }`
+})
+.then(result => console.log(result))
 
 class App extends React.Component {
 
@@ -10,11 +28,13 @@ class App extends React.Component {
       games: [],
       idx: 0, 
       gamesPlayed: 0,
-      gamesWon: 0
+      gamesWon: 0,
+      roundedRate: 0
     };
 
     this.createNewGame = this.createNewGame.bind(this);
     this.handleGameUpdate = this.handleGameUpdate.bind(this);
+    this.handleGameDelete = this.handleGameUpdate.bind(this)
 
   }
 
@@ -22,9 +42,15 @@ class App extends React.Component {
 handleGameUpdate(e) {
   if (e.type === "play")  {
 this.setState((state, props ) => ({gamesPlayed: state.gamesPlayed +1 }))
+
+// if (e.gamesPlayed < 0 ) {
+
+//   this.setState((state, props) => ({gamesPlayed: state.gamesPlayed === 0}))
+// }
     if(e.playerWon) {
       this.setState((state, props) => ({gamesWon: state.gamesWon + 1 }))
-    }
+    } 
+
   } else {
     //reset   
     this.setState((state, props) => ({gamesPlayed: state.gamesPlayed -1}));
@@ -37,13 +63,38 @@ this.setState((state, props ) => ({gamesPlayed: state.gamesPlayed +1 }))
 }
 
 
+handleGameDelete(e) {
+
+  if(e.played>0){
+this.setState((state, props ) => ({gamesPlayed: state.gamesPlayed  - 1 }));
+  }
+
+  if(e.playerWon > 0){
+    this.setState((state, props) => ({gamesWon: state.gamesWon - 1 }))
+  }
+
+  //der unten versuchte code klappt nicht
+
+  // else {
+  //   this.setState((state, props) => ({gamesPlayed: state.gamesWon === 0}))
+  // }
+
+  // this.setState((state, props) => ({
+  //   games: state.games.filter(game => game.key != e.index)
+
+  // }))
+}
+
 createNewGame(){
   console.log("Creating New Game!")
 
   let game = <li key={this.state.idx}>
     
   
-     <Game handleGameUpdate={this.handleGameUpdate}/> </li>;
+     <Game handleGameUpdate={this.handleGameUpdate}
+     index={this.state.idx}
+     handleGameDelete={this.handleGameDelete}
+     /> </li>;
 
   this.setState((state, props) => {
     console.log(this.state.idx)
@@ -58,6 +109,9 @@ createNewGame(){
 
 render () {
   return <div className="entireapp">
+    <ApolloProvider client={client}>
+<h1> Hello World</h1>
+    </ApolloProvider>
     <div className="column">
     <div className="headline">
   <h1>Rock Paper Scissors with React</h1>
@@ -84,8 +138,8 @@ render () {
 class Stats extends React.Component{
   render() {
     let rate = this.props.gamesPlayed ? this.props.gamesWon / this.props.gamesPlayed : 0;
+    let roundedRate = rate.toFixed(2)
 
-    let roundedRate = Math.round((rate+ Number.EPSILON) * 100) / 180;
     return <div className="space"> 
     <span>Games Played   {this.props.gamesPlayed}:      | Games won:    {this.props.gamesWon}   | Win rate: {roundedRate} </span> 
     
@@ -109,6 +163,7 @@ class Game extends React.Component {
     this.playGame = this.playGame.bind(this);
     this.reset  = this.reset.bind(this);
     this.notifyParentOfPlay = this.notifyParentOfPlay.bind(this);
+    this.notifyParentOfDelete = this.notifyParentOfDelete.bind(this);
     this.notifyParentOfReset = this.notifyParentOfReset.bind(this)
   }
 
@@ -128,13 +183,23 @@ class Game extends React.Component {
   }
 
   notifyParentOfPlay (){
-    let playerWon = this.state.status == true; 
+    let playerWon = this.state.status === true; 
     this.props.handleGameUpdate({
       type: "play",
       playerWon: "playerWon"
     })
   }
 
+  notifyParentOfDelete (){
+    let playerWon = this.state.status === true; 
+    this.props.handleGameDelete({
+      playerWon: "playerWon", 
+      played: this.state.played, 
+      index: this.props.index
+    })
+  }
+
+  
   notifyParentOfReset (){
     let playerWon = this.state.status == true; 
     this.props.handleGameUpdate({
@@ -142,6 +207,7 @@ class Game extends React.Component {
       playerWon: "playerWon"
     })
   }
+
 
   rock () {
     console.log("Rock chosen");
@@ -191,7 +257,10 @@ class Game extends React.Component {
      
     <div className="space">
     {resetBtn}
+    
+    <button onClick={this.notifyParentOfDelete} > Delete </button>
       </div> 
+
       </div>
     </div>    
   }
