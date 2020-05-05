@@ -2,8 +2,8 @@ import React from 'react';
 import logo from './logo.jpg';
 import './App.css';
 import ApolloClient from 'apollo-boost'
-import gql from 'graphql-tag';
-import { ApolloProvider, Query } from 'react-apollo';
+import { ApolloProvider } from 'react-apollo';
+import { Recipes } from './Recipes';
 
 const client = new ApolloClient({
   uri: "http://localhost:3000"
@@ -103,15 +103,7 @@ render () {
     <ApolloProvider client={client}>
 <h1> Hello World</h1>
 
-<Query
-
-query={gql`
-  
-  
-  `}
-
-
-></Query>
+<Recipes />
 
 
 
