@@ -3,22 +3,13 @@ import logo from './logo.jpg';
 import './App.css';
 import ApolloClient from 'apollo-boost'
 import gql from 'graphql-tag';
-import { ApolloProvider, ApolloConsumer } from 'react-apollo';
+import { ApolloProvider, Query } from 'react-apollo';
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000"
+  uri: "http://localhost:3000"
 });
 
-client 
-.query({
-  query: gql`{
-    recipes {
-       id 
-       title
-    }
-  }`
-})
-.then(result => console.log(result))
+
 
 class App extends React.Component {
 
@@ -108,9 +99,22 @@ createNewGame(){
 }
 
 render () {
-  return <div className="entireapp">
+  return <div className="entireapp"> (
     <ApolloProvider client={client}>
 <h1> Hello World</h1>
+
+<Query
+
+query={gql`
+  
+  
+  `}
+
+
+></Query>
+
+
+
     </ApolloProvider>
     <div className="column">
     <div className="headline">
